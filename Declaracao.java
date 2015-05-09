@@ -87,8 +87,7 @@ class Declaracao{
 		//atribuicao para variaveis com operadores.
 		else if(linhas.length > 3 && linhas.length < 6 && !inter.TestaString(linhas[0]) && linhas[1].equals("=") && linhas[3].equals("+") || linhas[3].equals("-") || linhas[3].equals("*") || linhas[3].equals("/")){
 			double se = 0, re = 0 ; // poderia calcular chamandos os metodos com os valores, porem nao tem como saber se é uma variavel ou não.
-			ar = false;
-			String op = linhas[1];
+			String op = linhas[3];
 			Variaveis a = inter.getVariavel(linhas[0]);
 			if(a == null) inter.erro.Erro1();
 			if(a.getTipo().equals("int") || a.getTipo().equals("double")){
