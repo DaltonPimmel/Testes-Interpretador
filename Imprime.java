@@ -17,10 +17,7 @@ class Imprime{
 				s = s + linhas[i] + " ";
 			}
 			int a = s.trim().length();
-			if(s.charAt(a) != '\''){ // teste se na ultima posicao tem aspas.
-				System.out.println("Erro na impressao da String, Para impressao de String utiliza-se ' String ' ");
-				System.exit(0);
-			}
+			if(s.charAt(a) != '\'') in.erro.Erro11(cont); // teste se na ultima posicao tem aspas.
 			String r = s.substring(2, (s.length() - 2)); // eliminando as ''
 			System.out.println(r);
 		}
@@ -29,7 +26,7 @@ class Imprime{
 			if(in.TestaString(linhas[1])) System.out.println(linhas[1]);
 			else{
 				Variaveis a = in.getVariavel(linhas[1]);
-				if(a == null) in.erro.Erro5();
+				if(a == null) in.erro.Erro5(nome, cont);
 				System.out.println(a.getValor());
 			}
 				
@@ -58,17 +55,17 @@ class Imprime{
 			else{
 				nome = linhas[1];
 				Variaveis a = in.getVariavel(nome);
-				if(a == null) in.erro.Erro5();
-				if(a.getTipo().equals("string")) in.erro.Erro5();
-				num = a.getValor();
+				if(a == null) in.erro.Erro5(nome, cont);
+				if(a.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				num = (double) a.getValor();
 			}
 			if(in.TestaString(linhas[3])) num1 = Double.parseDouble(linhas[3]);	
 			else{
 				nome = linhas[3];
 				Variaveis b = in.getVariavel(nome);
-				if(b == null) in.erro.Erro10();
-				if(b.getTipo().equals("string")) in.erro.Erro10();
-				num1 = b.getValor();	
+				if(b == null) in.erro.Erro5(nome, cont);
+				if(b.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				num1 = (double) b.getValor();	
 			}
 			double res = in.op.operacoes(linhas[2], num, num1); // chama o metodo das operacoes para imprimir.
 			System.out.println(res);

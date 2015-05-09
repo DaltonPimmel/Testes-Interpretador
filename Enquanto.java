@@ -14,7 +14,7 @@ class Enquanto{
 	
 	public int Enquan(String[] linha, int l){
 		String nome;
-		Object e = 0, d = 0;
+		double e = 0, d = 0;
 		//int test = 0;
 		
 			for(k = l + 1; k < linha.length && linha[k] != null; k++){
@@ -23,7 +23,7 @@ class Enquanto{
 					tok = linha[k].trim().split(" ");
 					//System.out.println(linha[k]);
 					if(tok[0].equals("enquanto")){  // verificar ........................
-						System.out.println("teste04");
+						//System.out.println("teste04");
 						c++;
 					}
 					if(linha[k].equals("fim enquanto")){
@@ -43,26 +43,27 @@ class Enquanto{
 				}
 			}
 					//	c = 0;
+					//System.out.println(tok[1]);
 						if(in.TestaString(tok[1])) d = Double.parseDouble(tok[1]);				
 						else{
 							nome = linha[3];
 							Variaveis a = in.getVariavel(nome);
-							if(a == null) in.erro.Erro10();
-							if(a.getTipo().equals("string")) in.erro.Erro10();
-							d = a.getValor();
+							if(a == null) in.erro.Erro5(nome, cont);
+							if(a.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+							d = (double) a.getValor();
 							
 						}	
 						if(in.TestaString(tok[3])) e = Double.parseDouble(tok[3]);		
 						else{
 							nome = linha[3];
 							Variaveis b = in.getVariavel(nome);
-							if(b == null) in.erro.Erro10();
-							if(b.getTipo().equals("string")) in.erro.Erro10();
-							e = b.getValor();
+							if(b == null) in.erro.Erro5(nome, cont);
+							if(b.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+							e = (double) b.getValor();
 							}
 						boolean t = in.log.Log(tok, d, e);
 						if(t){
-							System.out.println("teste");
+						//	System.out.println("teste");
 							 return l;
 						 }
 						if(k < test) return k;
@@ -75,7 +76,7 @@ class Enquanto{
 	public boolean Fim(int con){
 		//System.out.println(con);
 		if(con == test){
-			System.out.println("teste21");
+		//	System.out.println("teste21");
 		//	c = 0;
 			return true;
 		}

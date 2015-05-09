@@ -14,14 +14,10 @@ class Interpretador{
 	Logico log;
 	Enquanto enq;
 	LerTeclado ler;
-	VarInt varint;
 	Erros erro;
-	//CondParada conp;
-	//VarDouble vard;
-	//VarString varstring;
 	
-	public boolean con = true, verdadeiro = false, condd = false, teste = true;
-	private int cond, p, f;
+	public boolean con = true, verdadeiro = false, teste = true;
+	private int cond, p, Lfim = 0;
 	
 	public Interpretador(){
 		this.d = new Declaracao(this);
@@ -34,14 +30,13 @@ class Interpretador{
 		this.log = new Logico();
 		this.enq = new Enquanto(this);
 		this.ler = new LerTeclado(this);
-		this.varint = new VarInt();
 		this.erro = new Erros();
 		
 	}
 	
     public void interpreta(String l[]) {	
+		
 		Interpretador in = new Interpretador();
-		int Lfim = 0;
 		
 		while(con){  // testa se avhou o inicio e o fim do programa.
 			Lfim = t.Comeco(l);
@@ -81,32 +76,17 @@ class Interpretador{
 						verdadeiro = true; // verifica se pode utilizar o senao.
 						cond = cont;
 						cont = se.Se(l, cont, Lfim);
-						if(cont == 0){
-							System.out.println("Problema na hora de utilizar se na linha : " + (cond + 1));
-							System.exit(0);
-						}
+						if(cont == 0) erro.Erro16(cont);
 					break;
 					
 					case "senao":
-						if(verdadeiro){ // se verdadeiro for treu, pode-se utilizar o senao
-							cont = se.Se(l, cont, Lfim);
-							//verdadeiro = false;
-						}else{
-							System.out.println("111Problema na hora de utilizar o senao, nao he posivel utilizar antes do se : Linha : " + (cond + 1));
-							System.exit(0);
-						}
-						if(cont == 0){
-							System.out.println("Nao foi localizado o fim do senao");
-							System.exit(0);
-						}//else{
-						//	System.out.println("Imposivel usuar o senao antes do se dsddsdsdsdsdeded");
-						//	System.exit(0);
-						//}
+						if(verdadeiro) cont = se.Se(l, cont, Lfim); // se verdadeiro for treu, pode-se utilizar o senao	
+						else erro.Erro15(cont);
+						if(cont == 0) erro.Erro14(cont);		
 					break;
 					
 					case "enquanto":
 						if(teste){
-							System.out.println(l[cont]);
 							p = cont;
 							teste = false;
 						}
@@ -164,7 +144,7 @@ class Interpretador{
 	// testa se existe a variavel e retorna a posicao do vetor.
 	public Variaveis getVariavel(String n){
 		for(int i = 0; v[i] != null; i++){
-			if(v[i].getNome().equals(n)) return v[i] ; 
+			if(v[i].getNome().equals(n)) return v[i]; 
 		}
 		return null;
 	}
@@ -178,7 +158,11 @@ class Interpretador{
 	// cria a variavel.
 	public void AdicionaVar(Variaveis a){
 		for(int i = 0; i < v.length; i++){
-			if(v[i] == null) v[i] = a;
+			if(v[i] == null){
+				//v[i] = new Variaveis();
+				v[i] = a;
+				break;
+			}
 		}
 	}
 	

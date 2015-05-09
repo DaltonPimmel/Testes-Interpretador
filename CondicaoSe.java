@@ -81,7 +81,7 @@ class CondicaoSe{
 		}
 		if(fi == 0) return 0;
 		l = linhas[cont].trim().split(" ");
-		Object f, g, e;
+		double f = 0, g = 0, e = 0;
 		
 		// teste do mod dentro do se.
 		if(l.length > 3 && l.length < 7 && l[2].equals("%")){
@@ -89,25 +89,25 @@ class CondicaoSe{
 			 else{
 				 nome = linhas[1];
 				 Variaveis a = in.getVariavel(nome);
-				 if(a == null) in.erro.Erro10();
-				 if(a.getTipo().equals("string")) in.erro.Erro10();
-				 f = a.getValor();
+				 if(a == null) in.erro.Erro5(nome, cont);
+				 if(a.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				 f = (double)(a.getValor());
 			 }
 			 if(in.TestaString(l[3])) g = Double.parseDouble(l[3]);		
 			 else{
 				 nome = linhas[3];
 				 Variaveis b = in.getVariavel(nome);
 				 if(b == null) in.erro.Erro10();
-				 if(b.getTipo().equals("string")) in.erro.Erro10();
-				 g = b.getValor();
+				 if(b.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				 g = (double)(b.getValor());
 			 }
 			 if(in.TestaString(l[5])) e = Double.parseDouble(l[5]);		 
 			 else{
 				nome = linhas[5];
 				Variaveis c = in.getVariavel(nome);
-				if(c == null) in.erro.Erro10();
-				if(c.getTipo().equals("string")) in.erro.Erro10();
-				e = c.getValor();
+				if(c == null) in.erro.Erro5(nome, cont);
+				if(c.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				e = (double)(c.getValor());
 			 }
 			 if(in.op.Mod(f, g, e)){
 				verdadeiro = true;
@@ -124,20 +124,20 @@ class CondicaoSe{
 			else{
 				 nome = linhas[1];
 				 Variaveis a = in.getVariavel(nome);
-				 if(a == null) in.erro.Erro10();
-				 if(a.getTipo().equals("string")) in.erro.Erro10();
-				 f = a.getValor();
+				 if(a == null) in.erro.Erro5(nome, cont);
+				 if(a.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				 f = (double)a.getValor();
 			}
 			if(in.TestaString(l[3])) g = Double.parseDouble(l[3]);	 
 			else{
 				 nome = linhas[3];
 				 Variaveis b = in.getVariavel(nome);
-				 if(b == null) in.erro.Erro10();
-				 if(b.getTipo().equals("string")) in.erro.Erro10();
-				 g = b.getValor();
+				 if(b == null) in.erro.Erro5(nome, cont);
+				 if(b.getTipo().equals("string")) in.erro.Erro2(nome, cont);
+				 g = (double) b.getValor();
 			}	
 		}else{
-			in.erro.Erro3(); // erro
+			in.erro.Erro3(cont); // erro
 		}
 		
 		if (in.log.Log(l, f, g)){ //retorna false ou verdade para seguir para a proxima linha. se ele passar por todas as condiçoes retorna verdadeiro.
