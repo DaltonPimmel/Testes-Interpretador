@@ -3,6 +3,7 @@ class Imprime{
 	
 	Interpretador in;
 	String nome;
+	Object o = new Object();
 	
 	public Imprime(Interpretador i){
 		this.in = i;
@@ -27,7 +28,9 @@ class Imprime{
 			else{
 				Variaveis a = in.getVariavel(linhas[1]);
 				if(a == null) in.erro.Erro5(nome, cont);
-				System.out.println(a.getValor());
+				o = a.getValor();
+				
+				System.out.println(o);
 			}
 				
 		}
@@ -51,13 +54,18 @@ class Imprime{
 		// impressão com operadores.
 		else if(linhas.length > 3 && linhas.length < 5 && linhas[2].equals("+") || linhas[2].equals("-") || linhas[2].equals("*") || linhas[2].equals("/")){
 			double num = 0, num1 = 0;
+			int ds = 0;
 			if(in.TestaString(linhas[1])) num = Double.parseDouble(linhas[1]);  // testa se é um numero ou uma variavel, se nao for vai verificar nas variaveis se exite.	
 			else{
 				nome = linhas[1];
 				Variaveis a = in.getVariavel(nome);
 				if(a == null) in.erro.Erro5(nome, cont);
 				if(a.getTipo().equals("string")) in.erro.Erro2(nome, cont);
-				num = (double) a.getValor();
+				if(a.getValor() instanceof Integer){
+					ds = (int) a.getValor();
+					num = (double)ds;
+				}
+				else num = (double) a.getValor();
 			}
 			if(in.TestaString(linhas[3])) num1 = Double.parseDouble(linhas[3]);	
 			else{
